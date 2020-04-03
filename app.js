@@ -44,10 +44,12 @@ new Vue({
             if (this.playerHealth <= 90) {
                 this.playerHealth += 10
                 this.monsterAttacks()
+            } else {
+                this.playerHealth = 100
             }
         },
         giveUp: function () {
-
+            this.gameIsRunning = false
         },
         calculateDamage: function (minimum, maximum) {
             return Math.max(Math.floor(Math.random() * maximum) + 1, minimum)
