@@ -11,6 +11,7 @@ new Vue({
             this.gameIsRunning = true
             this.playerHealth = 100
             this.monsterHealth = 100
+            this.turns = []
         },
         attack: function () {
             this.playerAttacks()
@@ -58,6 +59,10 @@ new Vue({
 
 
         heal: function () {
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'Player has healed for 10'
+            })
             if (this.playerHealth <= 90) {
                 this.playerHealth += 10
                 this.monsterAttacks()
