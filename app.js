@@ -13,13 +13,17 @@ new Vue({
             this.monsterHealth = 100
         },
         attack: function () {
-
-            this.monsterAttacks()
             this.playerAttacks()
+            this.monsterAttacks()
         },
 
         specialAttack: function () {
-            this.monsterHealth -= this.calculateDamage(10, 20)
+            var damage = this.calculateDamage(10, 20)
+            this.monsterHealth -= damage
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'Player hits Monster with a special attack for ' + damage
+            })
             if (this.checkWin()) {
                 return
             }
@@ -29,6 +33,7 @@ new Vue({
         playerAttacks: function () {
             var damage = this.calculateDamage(3, 10)
             this.monsterHealth -= damage
+
             this.turns.unshift({
                 isPlayer: true,
                 text: 'Player hits Monster for ' + damage
@@ -40,11 +45,12 @@ new Vue({
         monsterAttacks: function () {
             var damage = this.calculateDamage(5, 15)
             this.playerHealth -= damage
-            this.checkWin()
+
             this.turns.unshift({
                 isPlayer: false,
                 text: 'Monster hits Player for ' + damage
             })
+            this.checkWin()
             return
         },
 
@@ -69,7 +75,7 @@ new Vue({
         checkWin: function () {
             if (this.monsterHealth <= 0) {
                 if (confirm('You won! New Game?')) {
-                    this.startGame();
+                    this.startGame()
                 } else {
                     this.gameIsRunning = false
                 }
@@ -80,10 +86,10 @@ new Vue({
                 } else {
                     this.gameIsRunning = false
                 }
-                return true;
+                return true
             }
 
-            return false;
+            return false
         }
     }
 });
